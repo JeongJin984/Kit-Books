@@ -1,68 +1,41 @@
 import React from 'react'
 
 import AppLayout from '../components/AppLayout'
+import RecommendCard from '../components/RecommendCard'
 
-import { Card, CardGroup } from 'react-bootstrap'
+import {Jumbotron, Button } from 'react-bootstrap'
+import IssueCard from '../components/IssueCard'
 
 const Home = () => {
 	return(
 		<AppLayout>
 			<div style={{textAlign: "center", marginTop: "100px", zIndex: "-1", position: "relative"}}>
 				<img src="/Logo.png"></img>
-				<img src="/sky.jpg" style={{width: "100%", opacity: "50%", marginTop: "-425px"}}></img>
+				<img src="/sky.jpg" style={{width: "100%", opacity: "50%", marginTop: "-340px"}}></img>
 			</div>
-			<div style={{margin:"60px", marginTop: "200px"}}>
-				<h3>Recommended</h3>
-				<div>
-					<CardGroup>
-						<Card>
-							<Card.Img variant="top" src="/mybook.jpg" height="350px"/>
-							<Card.Body>
-								<Card.Title>Jiny</Card.Title>
-							</Card.Body>
-							<Card.Footer>
-								<small className="text-muted">Last updated 3 mins ago</small>
-							</Card.Footer>
-						</Card>
-						<Card>
-							<Card.Img variant="top" src="/mybook.jpg" height="350px"/>
-							<Card.Body>
-								<Card.Title>Jiny</Card.Title>
-							</Card.Body>
-							<Card.Footer>
-								<small className="text-muted">Last updated 3 mins ago</small>
-							</Card.Footer>
-						</Card>
-						<Card>
-							<Card.Img variant="top" src="/mybook.jpg" height="350px"/>
-							<Card.Body>
-								<Card.Title>Jiny</Card.Title>
-							</Card.Body>
-							<Card.Footer>
-								<small className="text-muted">Last updated 3 mins ago</small>
-							</Card.Footer>
-						</Card>
-						<Card>
-							<Card.Img variant="top" src="/mybook.jpg" height="350px"/>
-							<Card.Body>
-								<Card.Title>Jiny</Card.Title>
-							</Card.Body>
-							<Card.Footer>
-								<small className="text-muted">Last updated 3 mins ago</small>
-							</Card.Footer>
-						</Card>
-						<Card>
-							<Card.Img variant="top" src="/mybook.jpg" height="350px"/>
-							<Card.Body>
-								<Card.Title>Jiny</Card.Title>
-							</Card.Body>
-							<Card.Footer>
-								<small className="text-muted">Last updated 3 mins ago</small>
-							</Card.Footer>
-						</Card>
-					</CardGroup>
-				</div>
+			<div style={{margin:"60px", marginTop: "100px"}}>
+				<h3>Issues</h3>
+				<IssueCard/>
 			</div>
+			<div style={{margin:"60px", marginTop: "100px"}}>
+				<h3>Recently</h3>
+				<RecommendCard/>
+			</div>
+			<Jumbotron style={{textAlign:"center", marginBottom: "0px", height: "290px", padding: "30px"}}>
+				<h1>Hello, User!</h1>
+				<p>
+					This is a simple book store, you can buy some of your books cheaper!!
+				</p>
+				<p>
+					Developer: Jiny(github: JeongJin984)
+				</p>
+				<p>
+					Ha Ha Ha
+				</p>
+				<p>
+					<Button variant="primary">Git-Hub</Button>
+				</p>
+			</Jumbotron>
 		</AppLayout>
 	)
 }

@@ -1,14 +1,22 @@
 import React from 'react'
 
 import Head from 'next/head'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import PropTypes from 'prop-types'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button, Container, Row, Col } from 'react-bootstrap'
+import wrapper from '../store/configureStore'
+import withReduxSaga from 'next-redux-saga'
+import { useSelector } from 'react-redux'
 
 const App = ({ Component }) => {
+	const router = useRouter()
+
+	const { isLoggedIn } = useSelector(state => state.user)
 	return(
 		<div>
 			<Head>
@@ -20,16 +28,25 @@ const App = ({ Component }) => {
 					<Col lg={2}></Col>
 					<Col xs={10} lg={7}>
 						<Navbar bg="#f1f2f6" expand="lg">
-							<Navbar.Brand href="#home">
-								<img
-									src="/book.png"
-									width="50"
-									height="50"
-									className="d-inline-block align-top"
-									alt="the book"
-								/>
+							<Navbar.Brand href="/">
+								{router.pathname === '/' ? 
+									<img
+										src="/book.png"
+										width="50"
+										height="50"
+										className="d-inline-block align-top"
+										alt="the book"	
+									/> : 
+									<img
+										src="/whiteBook.png"
+										width="50"
+										height="50"
+										className="d-inline-block align-top"
+										alt="the book"
+									/>}
+								
 							</Navbar.Brand>
-							<Navbar.Toggle aria-controls="basic-navbar-nav" />
+							<Navbar.Toggle aria-controls="basic-navbar-nav"/>
 							<Navbar.Collapse id="basic-navbar-nav">
 								<Nav className="mr-auto">
 									<Nav.Link href="/">Home</Nav.Link>
@@ -50,8 +67,14 @@ const App = ({ Component }) => {
 						</Navbar>
 					</Col>
 					<Col>
-						<Button variant="outline-info" style={{marginTop: "20px", marginRight:"10px", marginLeft:"10%"}}>Sign-Up</Button>
-						<Button variant="outline-info" style={{marginTop: "20px"}}>Sign-In</Button>
+						{isLoggedIn ?
+							<div></div> :
+							<div>
+								<Button variant="outline-info" style={{marginTop: "20px", marginRight:"10px", marginLeft:"10%"}}>
+									<Link href="/logIn"><a>Sign-Up</a></Link></Button>
+								<Button variant="outline-info" style={{marginTop: "20px"}}>Sign-In</Button>
+							</div>
+						}
 					</Col>
 				</Row>
 			</Container>
@@ -64,4 +87,4 @@ App.propTypes = {
 	Component: PropTypes.elementType.isRequired
 }
 
-export default App
+export default wrapper.withRedux(withReduxSaga(App))
