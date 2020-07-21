@@ -13,6 +13,17 @@ import wrapper from '../store/configureStore'
 import withReduxSaga from 'next-redux-saga'
 import { useSelector } from 'react-redux'
 
+import styled from '@emotion/styled'
+
+const SignButtonWrapper = styled.div`
+	margin-top: 18px;
+`
+
+const StyledContainer = styled(Container)`
+	width: 95%;
+	fluid: ${props => props.fluid ? 'true' : 'false'};
+`
+
 const App = ({ Component }) => {
 	const router = useRouter()
 
@@ -23,7 +34,7 @@ const App = ({ Component }) => {
 				<title>KitBooks</title>
 				<meta charSet="utf-8"></meta>
 			</Head>
-			<Container fluid="true" style={{width: "95%"}}>
+			<StyledContainer fluid="true">
 				<Row>
 					<Col lg={2}></Col>
 					<Col xs={10} lg={7}>
@@ -69,15 +80,20 @@ const App = ({ Component }) => {
 					<Col>
 						{isLoggedIn ?
 							<div></div> :
-							<div>
-								<Button variant="outline-info" style={{marginTop: "20px", marginRight:"10px", marginLeft:"10%"}}>
-									<Link href="/logIn"><a>Sign-Up</a></Link></Button>
-								<Button variant="outline-info" style={{marginTop: "20px"}}>Sign-In</Button>
-							</div>
+							<SignButtonWrapper>
+								<Link href="/logIn">
+									<Button variant="outline-info">
+										Sign-Up</Button>
+									</Link>
+									<span> </span>
+									<Link href="/logIn">
+										<Button variant="outline-info">Sign-In</Button>
+									</Link>
+							</SignButtonWrapper>
 						}
 					</Col>
 				</Row>
-			</Container>
+			</StyledContainer>
 			<Component/>
 		</div>
 	)

@@ -5,6 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Form, Button, Col, Row, Container } from 'react-bootstrap'
 import { LOGIN_REQUEST } from '../reducers/user'
 
+import styled from '@emotion/styled'
+
+const StyledForm = styled(Form)`
+	margin-top: 40%;
+`
 
 const LogInForm = () => {
 	const dispatch = useDispatch()
@@ -51,7 +56,7 @@ const LogInForm = () => {
 			<Row>
 				<Col></Col>
 				<Col xs={6}>
-					<Form style={{marginTop: "40%"}} onSubmit={onClickLogInButton}>
+					<StyledForm onSubmit={onClickLogInButton}>
 						<Form.Group controlId="formBasicEmail">
 							<Form.Label>Email address</Form.Label>
 							<Form.Control type="email" placeholder="Enter email" value={email} onChange={onChangeEmail}/>
@@ -68,7 +73,7 @@ const LogInForm = () => {
 							<Form.Check type="checkbox" label="Check me out" />
 						</Form.Group>
 						<Button variant="light" type="submit">Sign-Up</Button>
-					</Form>
+					</StyledForm>
 				</Col>
 				<Col></Col>
 			</Row>

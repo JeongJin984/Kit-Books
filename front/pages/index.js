@@ -5,23 +5,51 @@ import RecommendCard from '../components/RecommendCard'
 
 import {Jumbotron, Button } from 'react-bootstrap'
 import IssueCard from '../components/IssueCard'
+import styled from '@emotion/styled'
+
+const LogoBackgroungImg = styled.img`
+	width: 100%; 
+	opacity: 50%; 
+	margin-top: -340px;
+`
+
+const LogoImageWrapper = styled.div`
+	text-align: center; 
+	margin-top: 100px; 
+	z-index: -1; 
+	position: relative;
+`
+
+const ContentWrapper = styled.div`
+	margin: 60px; 
+	margin-top: 100px;
+`
+
+const StyledJumbotron = styled(Jumbotron)`
+	text-align: center; 
+	margin-bottom: 0px; 
+	height: 290px;
+	padding: 30px;
+`
+
+const RecentStockWrapper = styled
 
 const Home = () => {
 	return(
 		<AppLayout>
-			<div style={{textAlign: "center", marginTop: "100px", zIndex: "-1", position: "relative"}}>
+			<LogoImageWrapper>
 				<img src="/Logo.png"></img>
-				<img src="/sky.jpg" style={{width: "100%", opacity: "50%", marginTop: "-340px"}}></img>
-			</div>
-			<div style={{margin:"60px", marginTop: "100px"}}>
+				<LogoBackgroungImg src="/sky.jpg"></LogoBackgroungImg>
+			</LogoImageWrapper>
+			<ContentWrapper>
 				<h3>Issues</h3>
 				<IssueCard/>
-			</div>
-			<div style={{margin:"60px", marginTop: "100px"}}>
+			</ContentWrapper>
+			<ContentWrapper>
 				<h3>Recently</h3>
 				<RecommendCard/>
-			</div>
-			<Jumbotron style={{textAlign:"center", marginBottom: "0px", height: "290px", padding: "30px"}}>
+			</ContentWrapper>
+			<StyledJumbotron>
 				<h1>Hello, User!</h1>
 				<p>
 					This is a simple book store, you can buy some of your books cheaper!!
@@ -35,7 +63,7 @@ const Home = () => {
 				<p>
 					<Button variant="primary">Git-Hub</Button>
 				</p>
-			</Jumbotron>
+			</StyledJumbotron>
 		</AppLayout>
 	)
 }
