@@ -22,7 +22,6 @@ const SignButtonWrapper = styled.div`
 const StyledContainer = styled(Container)`
 	width: 95%;
 `
-
 const App = ({ Component }) => {
 	const router = useRouter()
 
@@ -78,7 +77,9 @@ const App = ({ Component }) => {
 					</Col>
 					<Col>
 						{isLoggedIn ?
-							<div></div> :
+							<SignButtonWrapper>
+								asdf
+							</SignButtonWrapper> :
 							<SignButtonWrapper>
 								<Link href="/logIn">
 									<Button variant="outline-info">
