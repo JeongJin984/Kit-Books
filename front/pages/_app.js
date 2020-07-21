@@ -21,7 +21,6 @@ const SignButtonWrapper = styled.div`
 
 const StyledContainer = styled(Container)`
 	width: 95%;
-	fluid: ${props => props.fluid ? 'true' : 'false'};
 `
 
 const App = ({ Component }) => {
