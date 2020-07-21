@@ -1,11 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Container, Row, Col } from 'react-bootstrap'
 
 const AppLayout = ({ children }) => {
 	return(
-		<div>
-			{children}
-		</div>
+		<Container fluid="true">
+			<Row>
+				<Col></Col>
+				<Col xs={10}>{children}</Col>
+				<Col></Col>
+			</Row>
+		</Container>
 	)
 }
 

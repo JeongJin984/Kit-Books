@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import { Navbar, Nav, NavDropdown, Form, FormControl, Button, Container, Row, Col } from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown, Form, FormControl, Button, Container, Row, Col, Dropdown, DropdownButton, ButtonGroup, Image} from 'react-bootstrap'
 import wrapper from '../store/configureStore'
 import withReduxSaga from 'next-redux-saga'
 import { useSelector } from 'react-redux'
@@ -17,6 +17,12 @@ import styled from '@emotion/styled'
 
 const SignButtonWrapper = styled.div`
 	margin-top: 18px;
+`
+
+const SimpleProfileWrapper = styled.div`
+	margin-top: 5px;
+	margin-right: -60px;
+	float: right;
 `
 
 const StyledContainer = styled(Container)`
@@ -59,14 +65,7 @@ const App = ({ Component }) => {
 							<Navbar.Collapse id="basic-navbar-nav">
 								<Nav className="mr-auto">
 									<Nav.Link href="/">Home</Nav.Link>
-									<Nav.Link href="/profile">Profile</Nav.Link>
 									<Nav.Link href="/bookStore">Store</Nav.Link>
-									<NavDropdown title="Books" id="basic-nav-dropdown">
-										<NavDropdown.Item href="/basket">Basket</NavDropdown.Item>
-										<NavDropdown.Item href="/shoppingList">Shopping List</NavDropdown.Item>
-										<NavDropdown.Divider />
-										<NavDropdown.Item href="/">Recommended</NavDropdown.Item>
-									</NavDropdown>
 								</Nav>
 								<Form inline>
 									<FormControl type="text" placeholder="Search" className="mr-sm-2" />
@@ -77,16 +76,28 @@ const App = ({ Component }) => {
 					</Col>
 					<Col>
 						{isLoggedIn ?
-							<SignButtonWrapper>
-								asdf
-							</SignButtonWrapper> :
+							<SimpleProfileWrapper>
+								<Navbar collapseOnSelect expand="lg" bg="#f1f2f6" variant="#f1f2f6">
+									<Navbar.Brand style={{marginRight: "0px"}}><Image src="/gitProfileImage.png" width="30" height="30" roundedCircle ></Image></Navbar.Brand>
+									<Navbar.Collapse id="responsive-navbar-nav">
+										<Nav className="mr-auto">
+											<NavDropdown title="" id="collasible-nav-dropdown" alignRight="true">
+												<NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+												<NavDropdown.Item href="/shoppingList">Shopping-Basket</NavDropdown.Item>
+												<NavDropdown.Divider />
+												<NavDropdown.Item href="/">Log-Out</NavDropdown.Item>
+											</NavDropdown>
+										</Nav>
+									</Navbar.Collapse>
+								</Navbar>
+							</SimpleProfileWrapper> :
 							<SignButtonWrapper>
 								<Link href="/logIn">
 									<Button variant="outline-info">
 										Sign-Up</Button>
 									</Link>
 									<span> </span>
-									<Link href="/logIn">
+									<Link href="/signIn">
 										<Button variant="outline-info">Sign-In</Button>
 									</Link>
 							</SignButtonWrapper>

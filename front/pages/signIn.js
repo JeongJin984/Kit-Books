@@ -2,7 +2,7 @@ import React from 'react'
 
 import AppLayout from '../components/AppLayout'
 
-const profile = () => {
+const SignIn = () => {
 	return(
 		<AppLayout>
 			asdf
@@ -10,4 +10,4 @@ const profile = () => {
 	)
 }
 
-export default profile
+export default SignIn

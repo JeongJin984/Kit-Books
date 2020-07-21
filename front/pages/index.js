@@ -36,7 +36,7 @@ const RecentStockWrapper = styled
 
 const Home = () => {
 	return(
-		<AppLayout>
+		<div>
 			<LogoImageWrapper>
 				<img src="/Logo.png"></img>
 				<LogoBackgroungImg src="/sky.jpg"></LogoBackgroungImg>
@@ -64,7 +64,7 @@ const Home = () => {
 					<Button variant="primary">Git-Hub</Button>
 				</p>
 			</StyledJumbotron>
-		</AppLayout>
+		</div>
 	)
 }
 
