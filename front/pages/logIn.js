@@ -16,31 +16,16 @@ const LogInForm = () => {
 	const router = useRouter()
 	
 	const { isLoggedIn } = useSelector(state => state.user)
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
-
-	const onChangeEmail = useCallback(
-		(e) => {
-			setEmail(e.target.value)
-		},
-		[],
-	)
-	const onChangePassword = useCallback(
-		(e) => {
-			setPassword(e.target.value)
-		},
-		[],
-	)
 
 	const onClickLogInButton = useCallback(
 		(e) => {
 			e.preventDefault();
-			console.log(e)
+			console.log(e.target.formBasicEmail.value,e.target.formBasicPassword.value)
 			dispatch({
 				type: LOGIN_REQUEST,
 				data: {
-					email: email,
-					password: password
+					email: e.target.formBasicEmail.value,
+					password: e.target.formBasicPassword.value
 				}
 			})
 		},
@@ -59,7 +44,7 @@ const LogInForm = () => {
 					<StyledForm onSubmit={onClickLogInButton}>
 						<Form.Group controlId="formBasicEmail">
 							<Form.Label>Email address</Form.Label>
-							<Form.Control type="email" placeholder="Enter email" value={email} onChange={onChangeEmail}/>
+							<Form.Control type="email" placeholder="Enter email"/>
 							<Form.Text className="text-muted">
 								We will never share your email with anyone else.
 							</Form.Text>
@@ -67,7 +52,7 @@ const LogInForm = () => {
 
 						<Form.Group controlId="formBasicPassword">
 							<Form.Label>Password</Form.Label>
-							<Form.Control type="password" placeholder="Password" value={password} onChange={onChangePassword}/>
+							<Form.Control type="password" placeholder="Password"/>
 						</Form.Group>
 						<Form.Group controlId="formBasicCheckbox">
 							<Form.Check type="checkbox" label="Check me out" />
