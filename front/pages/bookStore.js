@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react'
 
-import { Card, CardDeck } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import StoreLayout from '../components/StoreLayout'
-import FiveBooks from '../components/FiveBooks'
 
 import styled from '@emotion/styled'
 

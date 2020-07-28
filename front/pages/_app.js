@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import { Navbar, Nav, NavDropdown, Form, FormControl, Button, Container, Row, Col, Dropdown, DropdownButton, ButtonGroup, Image} from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown, Form, FormControl, Button, Container, Row, Col, Image} from 'react-bootstrap'
 import wrapper from '../store/configureStore'
 import withReduxSaga from 'next-redux-saga'
 import { useSelector } from 'react-redux'
