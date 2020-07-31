@@ -3,25 +3,45 @@ import React, { useCallback } from 'react'
 import AppLayout from '../components/AppLayout'
 
 import { Form, Col, Button } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { SIGN_IN_REQUEST } from '../reducers/user'
+import { useRouter } from 'next/router'
+
+export const Colleges = [ '', '컴퓨터공학과', '전자공학과', '산업공학과' ]
 
 const SignIn = () => {
+	const dispatch = useDispatch()
+	const { isLoggedIn } = useSelector(state => state.user)
+	const router = useRouter()
+
+	let collegeNum = 0;
 
 	const onSubmitSignInFrom = useCallback(
 		(e) => {
 			e.preventDefault()
-			console.log(e.target.userEmail.value)
-			console.log(e.target.userNickName.value)
-			console.log(e.target.userPassword.value)
-			console.log(e.target.userJender.value)
-			console.log(e.target.userNumber.value)
-			console.log(e.target.userClass.value)
-			console.log(e.target.userGrade.value)
-			console.log(e.target.userBirthYear.value)
-			console.log(e.target.userBirthMonth.value)
-			console.log(e.target.userBirthDay.value)
+
+			collegeNum = Colleges.findIndex( (v) => v === e.target.userClass.value ) 
+
+			dispatch({
+				type: SIGN_IN_REQUEST,
+				data: {
+					email: e.target.userEmail.value,
+					nickname: e.target.userNickName.value,
+					password: e.target.userPassword.value,
+					jender: e.target.userJender.value,
+					phoneNum: e.target.userNumber.value,
+					college: collegeNum,
+					grade: e.target.userGrade.value,
+					birth: e.target.userBirthYear.value + '-' + e.target.userBirthMonth.value + '-' + e.target.userBirthDay.value
+				}
+			})
 		},
 		[]
 	)
+
+	if(isLoggedIn) {
+		router.push('/')
+	}
 
 	return(
 		<AppLayout>

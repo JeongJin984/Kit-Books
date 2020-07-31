@@ -1,21 +1,22 @@
 import React from 'react'
 
-import AppLayout from '../components/AppLayout'
 import RecommendCard from '../components/RecommendCard'
 
-import {Jumbotron, Button } from 'react-bootstrap'
+import { Jumbotron, Button, Image } from 'react-bootstrap'
 import IssueCard from '../components/IssueCard'
 import styled from '@emotion/styled'
+import AppLayout from '../components/AppLayout'
 
 const LogoBackgroungImg = styled.img`
 	width: 100%; 
 	opacity: 50%; 
-	margin-top: -340px;
+	margin-top: -500px;
+	height: 600px;
 `
 
 const LogoImageWrapper = styled.div`
 	text-align: center; 
-	margin-top: 100px; 
+	margin-top: 10px; 
 	z-index: -1; 
 	position: relative;
 `
@@ -32,13 +33,11 @@ const StyledJumbotron = styled(Jumbotron)`
 	padding: 30px;
 `
 
-const RecentStockWrapper = styled
-
 const Home = () => {
 	return(
-		<div>
+		<AppLayout>
 			<LogoImageWrapper>
-				<img src="/Logo.png"></img>
+				<Image src="/Logo7.png" width="500px"></Image>
 				<LogoBackgroungImg src="/sky.jpg"></LogoBackgroungImg>
 			</LogoImageWrapper>
 			<ContentWrapper>
@@ -64,7 +63,7 @@ const Home = () => {
 					<Button variant="primary">Git-Hub</Button>
 				</p>
 			</StyledJumbotron>
-		</div>
+		</AppLayout>
 	)
 }
 

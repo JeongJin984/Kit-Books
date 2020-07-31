@@ -4,6 +4,7 @@ import { Card } from 'react-bootstrap'
 import StoreLayout from '../components/StoreLayout'
 
 import styled from '@emotion/styled'
+import AppLayout from '../components/AppLayout'
 
 const CardsWrapper = styled.div`
 	display: flex;
@@ -33,19 +34,21 @@ const bookStore = () => {
 	)
 
 	return(
-		<StoreLayout>
-			<CardsWrapper>
-				<StyledCard onClick={onClickCard} id={`${"OS"}`}>
-						<Card.Img variant="top" src="mybook.jpg" height="280px" id={`${"OS"}`}/>
-						<StyledCardBody id={`${"OS"}`}>
-							<Card.Title id={`${"OS"}`}>OS</Card.Title>
-							<Card.Text id={`${"OS"}`}>
-								재고:3
-							</Card.Text>
-						</StyledCardBody>
-				</StyledCard>
-			</CardsWrapper>
-		</StoreLayout>
+		<AppLayout>
+			<StoreLayout>
+				<CardsWrapper>
+					<StyledCard onClick={onClickCard} id={`${"OS"}`}>
+							<Card.Img variant="top" src="mybook.jpg" height="280px" id={`${"OS"}`}/>
+							<StyledCardBody id={`${"OS"}`}>
+								<Card.Title id={`${"OS"}`}>OS</Card.Title>
+								<Card.Text id={`${"OS"}`}>
+									재고:3
+								</Card.Text>
+							</StyledCardBody>
+					</StyledCard>
+				</CardsWrapper>
+			</StoreLayout>
+		</AppLayout>
 	)
 }
 

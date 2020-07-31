@@ -2,8 +2,10 @@
 
 const  Sequelize = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
+const config = require(__dirname + '/../config/config')[env];
 const db = {};
+
+const CollegeList = ['컴퓨터공학과', '전자공학과', '산업공학과']
 
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
@@ -19,6 +21,17 @@ Object.keys(db).forEach(modelName => {
     db[modelName].associate(db);
   }
 });
+
+Promise.all(CollegeList.map(v => {
+  db.College.findOrCreate({
+    where: {
+      name: v.trim()
+    },
+    defaults: {
+      name: v.trim()
+    }
+  }).catch((error) => console.error(error))
+}))
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

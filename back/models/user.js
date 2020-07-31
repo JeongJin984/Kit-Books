@@ -11,18 +11,26 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING(30),
 			allowNull: false
 		},
-		nickname: {
-			type: DataTypes.STRING(30),
-			allowNull: false
-		},
 		password: {
 			type: DataTypes.STRING(100),
+			allowNull: false
+		},
+		jender: {
+			type: DataTypes.STRING(10),
+			allowNull: false
+		},
+		grade: {
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		birth: {
+			type: DataTypes.DATE,
 			allowNull: false
 		},
 		phonenum: {
 			type: DataTypes.STRING(30),
 			allowNull: false
-		}
+		},
 	}, {
 		charset: 'utf8',
 		collate: 'utf8_general_ci'
