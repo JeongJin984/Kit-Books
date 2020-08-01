@@ -1,9 +1,36 @@
 const express = require('express') 
-const { User } = require('../models')
+const { User, College } = require('../models')
 const bcrypt = require('bcrypt')
 const passport = require('passport')
+const { isLoggedIn, isNotLoggedIn } = require('./middlewares')
 
 const router = express.Router()
+
+router.get('/', async (req, res) => {
+	try {
+		if(req.user) {
+			const user = await User.findOne({
+				where: { id: req.user.id },
+				attributes: {
+					exclude: [ 'password', 'collegeId', 'createdAt', 'updatedAt' ],
+				},
+				include: [
+					{ 
+						model: College,
+						attributes: ['name']
+					}
+				]
+			})
+
+			res.status(200).json(user)	
+		} else {
+			res.status(200).json(null)
+		}
+	} catch (error) {
+		console.error(error),
+		next(error)
+	}
+})
 
 router.post('/logIn', (req, res, next) => {
 	console.log('passport linked!!!!!!000000000')
@@ -27,7 +54,7 @@ router.post('/logIn', (req, res, next) => {
 	})(req, res, next)
 })
 
-router.post('/signIn', async (req, res) => {
+router.post('/signIn', isNotLoggedIn, async (req, res) => {
 	const hashedPassword = await bcrypt.hash(req.body.password, 12)
 
 	await User.create({

@@ -1,5 +1,5 @@
 import { all, fork, takeLatest, put, call } from 'redux-saga/effects'
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAILURE, GOOGLE_LOGIN_REQUEST, GOOGLE_LOGIN_SUCCESS, GOOGLE_LOGIN_FAILURE } from '../reducers/user'
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAILURE, GOOGLE_LOGIN_REQUEST, GOOGLE_LOGIN_SUCCESS, GOOGLE_LOGIN_FAILURE, LOAD_MY_INFO_REQUEST, LOAD_MY_INFO_SUCCESS, LOAD_MY_INFO_FAILURE } from '../reducers/user'
 
 import axios from 'axios'
 
@@ -71,10 +71,34 @@ function* watchGoogleLogIn() {
 	yield takeLatest(GOOGLE_LOGIN_REQUEST, googleLogIn)
 }
 
+function loadMyInfoAPI() {
+	return axios.get('/user/')
+}
+
+function* loadMyInfo() {
+	try {
+		const result = yield call(loadMyInfoAPI)
+		yield put({
+			type: LOAD_MY_INFO_SUCCESS,
+			data: result.data
+		})
+	} catch (error) {
+		yield put({
+			type: LOAD_MY_INFO_FAILURE,
+			errror: error
+		})
+	}
+}
+
+function* watchLoadMyInfo() {
+	yield takeLatest(LOAD_MY_INFO_REQUEST, loadMyInfo)
+}
+
 export default function* userSaga() {
 	yield all([
 		fork(watchLogIn),
 		fork(watchSignIn),
-		fork(watchGoogleLogIn)
+		fork(watchGoogleLogIn),
+		fork(watchLoadMyInfo)
 	])
 }

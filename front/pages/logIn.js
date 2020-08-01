@@ -30,7 +30,6 @@ const LogInForm = () => {
 	const onClickLogInButton = useCallback(
 		(e) => {
 			e.preventDefault();
-			console.log(e.target.formBasicEmail.value,e.target.formBasicPassword.value)
 			dispatch({
 				type: LOGIN_REQUEST,
 				data: {

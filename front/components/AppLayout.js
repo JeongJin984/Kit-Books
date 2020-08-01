@@ -22,9 +22,6 @@ const SimpleProfileWrapper = styled.div`
 const StyledContainer = styled(Container)`
 	width: 95%;
 `
-
-const LinkWrapper = styled(Nav.Link)``
-
 const AppLayout = ({ children }) => {
 	const router = useRouter()
 
@@ -58,8 +55,8 @@ const AppLayout = ({ children }) => {
 							<Navbar.Toggle aria-controls="basic-navbar-nav"/>
 							<Navbar.Collapse id="basic-navbar-nav">
 								<Nav className="mr-auto">
-									<Nav.Link><Link href="/"><LinkWrapper href="/">Home</LinkWrapper></Link></Nav.Link>
-									<Nav.Link><Link href="/bookStore"><LinkWrapper href="/bookStore">Store</LinkWrapper></Link></Nav.Link>
+									<Link href="/"><Nav.Link href="/">Home</Nav.Link></Link>
+									<Link href="/bookStore"><Nav.Link href="bookStore">Store</Nav.Link></Link>
 								</Nav>
 								<Form inline>
 									<FormControl type="text" placeholder="Search" className="mr-sm-2" />
@@ -75,7 +72,7 @@ const AppLayout = ({ children }) => {
 									<Navbar.Brand style={{marginRight: "0px"}}><Image src="/gitProfileImage.png" width="30" height="30" roundedCircle ></Image></Navbar.Brand>
 									<Navbar.Collapse id="responsive-navbar-nav">
 										<Nav className="mr-auto">
-											<NavDropdown title="" id="collasible-nav-dropdown" alignRight="true">
+											<NavDropdown title="" id="collasible-nav-dropdown" alignRight={true}>
 												<a style={{marginLeft: "20px"}}>Signed In as</a>
 												<h5 style={{marginLeft: "20px"}}>Jiny</h5>
 												<NavDropdown.Divider />
