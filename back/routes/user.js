@@ -54,6 +54,12 @@ router.post('/logIn', (req, res, next) => {
 	})(req, res, next)
 })
 
+router.get('/logout', (req,res) => {
+	req.logOut()
+	req.session.destroy()
+	res.send('ok')
+}) 
+
 router.post('/signIn', isNotLoggedIn, async (req, res) => {
 	const hashedPassword = await bcrypt.hash(req.body.password, 12)
 

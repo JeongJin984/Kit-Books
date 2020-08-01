@@ -79,13 +79,12 @@ export const getServerSideProps = wrapper.getServerSideProps( async (context) =>
 	if(context.req && cookie) {
 		axios.defaults.headers.Cookie = cookie
 	}
-	
+
 	context.store.dispatch({
 		type: LOAD_MY_INFO_REQUEST
 	})
 	context.store.dispatch(END)
 	await context.store.sagaTask.toPromise()
-
 })
 
 export default Home

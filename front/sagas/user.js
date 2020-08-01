@@ -1,5 +1,5 @@
 import { all, fork, takeLatest, put, call } from 'redux-saga/effects'
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAILURE, GOOGLE_LOGIN_REQUEST, GOOGLE_LOGIN_SUCCESS, GOOGLE_LOGIN_FAILURE, LOAD_MY_INFO_REQUEST, LOAD_MY_INFO_SUCCESS, LOAD_MY_INFO_FAILURE } from '../reducers/user'
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAILURE, GOOGLE_LOGIN_REQUEST, GOOGLE_LOGIN_SUCCESS, GOOGLE_LOGIN_FAILURE, LOAD_MY_INFO_REQUEST, LOAD_MY_INFO_SUCCESS, LOAD_MY_INFO_FAILURE, LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE } from '../reducers/user'
 
 import axios from 'axios'
 
@@ -24,6 +24,28 @@ function* logIn(action) {
 
 function* watchLogIn() {
 	yield takeLatest(LOGIN_REQUEST, logIn)
+}
+
+function logOutAPI() {
+	return axios.get("/user/logout")
+}
+
+function* logOut() {
+	try {
+		const result = yield call(logOutAPI)
+		console.log(result)
+		yield put({
+			type: LOGOUT_SUCCESS
+		})
+	} catch (error) {
+		yield put({
+			type: LOGOUT_FAILURE
+		})
+	}
+}
+
+function* watchLogOut() {
+	yield takeLatest(LOGOUT_REQUEST, logOut)
 }
 
 function signInAPI(data) {
@@ -78,10 +100,14 @@ function loadMyInfoAPI() {
 function* loadMyInfo() {
 	try {
 		const result = yield call(loadMyInfoAPI)
-		yield put({
-			type: LOAD_MY_INFO_SUCCESS,
-			data: result.data
-		})
+		if(result.data){
+			yield put({
+				type: LOAD_MY_INFO_SUCCESS,
+				data: result.data
+			})
+		} else {
+			throw('Did not logged In')
+		}
 	} catch (error) {
 		yield put({
 			type: LOAD_MY_INFO_FAILURE,
@@ -97,6 +123,7 @@ function* watchLoadMyInfo() {
 export default function* userSaga() {
 	yield all([
 		fork(watchLogIn),
+		fork(watchLogOut),
 		fork(watchSignIn),
 		fork(watchGoogleLogIn),
 		fork(watchLoadMyInfo)

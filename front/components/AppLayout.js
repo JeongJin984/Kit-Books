@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -7,7 +7,8 @@ import { Col, Navbar, Nav, NavDropdown, Form, FormControl, Button, Container, Ro
 
 import styled from '@emotion/styled'
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { LOGOUT_REQUEST } from '../reducers/user'
 
 const SignButtonWrapper = styled.div`
 	margin-top: 18px;
@@ -24,8 +25,18 @@ const StyledContainer = styled(Container)`
 `
 const AppLayout = ({ children }) => {
 	const router = useRouter()
+	const dispatch = useDispatch()
 
 	const { isLoggedIn } = useSelector(state => state.user)
+
+	const onClickLogOut = useCallback(
+		() => {
+			dispatch({
+				type: LOGOUT_REQUEST
+			})
+		},
+		[],
+	)
 
 	return(
 		<div>
@@ -79,7 +90,7 @@ const AppLayout = ({ children }) => {
 												<Link href="/profile"><NavDropdown.Item href="/profile">Profile</NavDropdown.Item></Link>
 												<Link href="/shoppingList"><NavDropdown.Item href="/shoppingList">Shopping-Basket</NavDropdown.Item></Link>
 												<NavDropdown.Divider />
-												<Link href="/"><NavDropdown.Item href="/">Log-Out</NavDropdown.Item></Link>
+												<Link href="/"><NavDropdown.Item href="/" onClick={onClickLogOut}>Log-Out</NavDropdown.Item></Link>
 											</NavDropdown>
 										</Nav>
 									</Navbar.Collapse>
