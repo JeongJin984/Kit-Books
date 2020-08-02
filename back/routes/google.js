@@ -10,18 +10,18 @@ router.get('/callback', (req, res, next) => {
   passport.authenticate('google', (err, user, info) => {
     if(err) {
       console.log(err)
-      return res.redirect('/good')
+      return res.redirect('/failed')
     }
     if(!user) {
       console.log('user did not permit')
-      return res.redirect('/good')
+      return res.redirect('/failed')
     }
     return req.login(user, (error) => {
       if(error) {
         console.log(error)
         return next(error)
       }
-      return res.redirect('/good')
+      return window.location.href = "http://webworks.kr"
     })
   })(req, res, next)
 });
