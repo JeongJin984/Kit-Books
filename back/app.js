@@ -8,10 +8,15 @@ const passport = require("passport")
 const passportConfig = require('./passport')
 const dotenv = require('dotenv')
 const userRouter = require('./routes/user')
+const helmet = require('helmet')
+const hpp = require('hpp')
 const googleAuthor = require('./routes/google')
 
+
 const app = express()
-const port = process.env.NODE_ENV === 'production' ? 80 : 3090;
+const prod = process.env.NODE_ENV === 'production'
+const port = prod  ? 80 : 3090;
+
 passportConfig()
 dotenv.config()
 db.sequelize.sync()
@@ -21,6 +26,18 @@ db.sequelize.sync()
 	.catch(() => {
 		console.error("DB LINK FAILED!!!")
 	})
+
+if(prod) {
+	app.use(morgan('combined'))
+	app.use(hpp())
+	app.use(helmet())
+	app.use(cors({
+		origin: [ 'http://localhost:3000', 'webworks.kr' ],
+		credentials: true
+	}))
+} else {
+	app.use(morgan('dev'))
+}
 
 app.use(morgan('dev'))
 app.use(cors({
