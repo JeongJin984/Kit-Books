@@ -31,17 +31,12 @@ if(prod) {
 	app.use(morgan('combined'))
 	app.use(hpp())
 	app.use(helmet())
-	app.use(cors({
-		origin: [ 'http://localhost:3000', 'webworks.kr', "http://15.164.233.1" ],
-		credentials: true
-	}))
 } else {
 	app.use(morgan('dev'))
 }
 
-app.use(morgan('dev'))
 app.use(cors({
-	origin: 'http://localhost:3000',
+	origin: [ 'http://localhost:3000', 'webworks.kr', "http://15.164.233.1" ],
 	credentials: true
 }))
 app.use(cookieParser(process.env.COOKIE_SECRET))
