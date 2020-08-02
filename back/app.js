@@ -32,7 +32,7 @@ if(prod) {
 	app.use(hpp())
 	app.use(helmet())
 	app.use(cors({
-		origin: [ 'http://localhost:3000', 'webworks.kr', "http://http://15.164.233.1/" ],
+		origin: [ 'http://localhost:3000', 'webworks.kr', "http://15.164.233.1/" ],
 		credentials: true
 	}))
 } else {
