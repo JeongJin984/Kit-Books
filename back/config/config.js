@@ -20,9 +20,10 @@ module.exports = {
   },
   "production": {
     "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "password": process.env.DB_PASSWORD,
+    "database": "kit-books",
+    "host": "localhost",
+    "port": "3306",
     "dialect": "mysql"
   }
 }
