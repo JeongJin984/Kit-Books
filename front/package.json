@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon server",
     "dev2": "next",
-    "build": "cross-env ANALYZE=true NODE_ENV=production next build"
+    "build": "cross-env ANALYZE=true NODE_ENV=production next build",
+    "start": "cross-env NODE_ENV=production next start -p 80"
   },
   "repository": {
     "type": "git",
