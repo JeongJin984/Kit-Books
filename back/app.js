@@ -70,7 +70,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/good', (req, res) => {
-	res.send(`Welcome ${req.user.name}`)
+	res.send(`Welcome User`)
 })
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
