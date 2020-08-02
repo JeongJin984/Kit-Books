@@ -11,7 +11,7 @@ const userRouter = require('./routes/user')
 const googleAuthor = require('./routes/google')
 
 const app = express()
-const port = 3090
+const port = process.env.NODE_ENV === 'production' ? 80 : 3090;
 passportConfig()
 dotenv.config()
 db.sequelize.sync()
@@ -42,8 +42,8 @@ app.use(express.urlencoded({extended: true }))
 app.use('/user', userRouter)
 app.use('/google', googleAuthor)
 
-app.get('/failed', (req, res) => {
-	res.send('you Failed to Login')
+app.get('/', (req, res) => {
+	res.send('hello express')
 })
 
 app.get('/good', (req, res) => {
