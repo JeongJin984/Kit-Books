@@ -28,6 +28,7 @@ const AppLayout = ({ children }) => {
 	const dispatch = useDispatch()
 
 	const { isLoggedIn } = useSelector(state => state.user)
+	console.log(isLoggedIn)
 
 	const onClickLogOut = useCallback(
 		() => {
