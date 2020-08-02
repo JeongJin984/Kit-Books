@@ -1,0 +1,1 @@
+export const backURL = process.env.NODE_ENV === 'production' ? "http://13.125.227.157" : "http://localhost:3090"
