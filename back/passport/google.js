@@ -13,6 +13,7 @@ module.exports = () => {
 		callbackURL: "http://api.webworks.kr/google/callback"
   },
   async (accessToken, refreshToken, profile, done) => {
+		console.log("Linked and working!!!!")
 		console.log(profile)
 		try {
 			const user = await User.findOne({ 
