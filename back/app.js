@@ -32,13 +32,13 @@ if(prod) {
 	app.use(hpp())
 	app.use(helmet())
 	app.use(cors({
-		origin: [ 'http://webworks.kr', 'http://www.webworks.kr' ],
+		origin: 'http://www.webworks.kr',
 		credcentials: true
 	}))
 } else {
 	app.use(morgan('dev'))
 	app.use(cors({
-		origin: true,
+		origin: 'http://www.webworks.kr',
 		credentials: true
 	}))
 }
