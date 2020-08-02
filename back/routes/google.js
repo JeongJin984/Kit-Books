@@ -21,7 +21,7 @@ router.get('/callback', (req, res, next) => {
         console.log(error)
         return next(error)
       }
-      return window.location.href = "http://webworks.kr"
+      return res.redirect('/good')
     })
   })(req, res, next)
 });
