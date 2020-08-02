@@ -54,6 +54,10 @@ router.post('/logIn', (req, res, next) => {
 	})(req, res, next)
 })
 
+router.post('/google', (req, res) => {
+	res.redirect('google/')
+})
+
 router.get('/logout', (req,res) => {
 	req.logOut()
 	req.session.destroy()

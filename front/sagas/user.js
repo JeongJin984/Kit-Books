@@ -90,7 +90,7 @@ function* watchSignIn() {
 }
 
 function googleLogInAPI() {
- return axios.get('/google')
+  return axios.get('/user/google')
 }
 
 function* googleLogIn() {
