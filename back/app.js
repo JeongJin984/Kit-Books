@@ -51,6 +51,7 @@ app.use(session({
 	cookie: {
 		httpOnly: true,
 		secure: false,
+		domain: prod && '.webworks.kr'
 	}
 }))
 app.use(passport.initialize())
