@@ -15,7 +15,7 @@ const googleAuthor = require('./routes/google')
 
 const app = express()
 const prod = process.env.NODE_ENV === 'production'
-const port = prod  ? 80 : 3090;
+const port = prod ? 80 : 3090;
 
 passportConfig()
 dotenv.config()
@@ -28,17 +28,23 @@ db.sequelize.sync()
 	})
 
 if(prod) {
+	console.log('productionsfs')
 	app.use(morgan('combined'))
 	app.use(hpp())
 	app.use(helmet())
+	app.use(cors({
+		origin: 'http://webworks.kr',
+		credentials: true
+	}))
 } else {
 	app.use(morgan('dev'))
+	app.use(cors({
+		origin: true,
+		credentials: true
+	}))
 }
 
-app.use(cors({
-	origin: true,
-	credentials: true
-}))
+
 app.use(cookieParser(process.env.COOKIE_SECRET))
 app.use(session({
 	saveUninitialized: false,
