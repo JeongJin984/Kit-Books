@@ -33,7 +33,7 @@ if(prod) {
 	app.use(hpp())
 	app.use(helmet())
 	app.use(cors({
-		origin: 'http://webworks.kr',
+		origin: [ 'http://www.webworks.kr' ],
 		credentials: true
 	}))
 } else {
