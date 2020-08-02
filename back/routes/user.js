@@ -54,7 +54,7 @@ router.post('/logIn', (req, res, next) => {
 	})(req, res, next)
 })
 
-router.post('/google', (req, res) => {
+router.get('/google', (req, res) => {
 	res.redirect('google/')
 })
 
