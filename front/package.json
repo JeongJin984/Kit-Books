@@ -7,7 +7,7 @@
     "dev": "nodemon server",
     "dev2": "next",
     "build": "cross-env ANALYZE=true NODE_ENV=production next build",
-    "start": "cross-env NODE_ENV=production next start -p 80"
+    "start": "cross-env NODE_ENV=production next start -p 3060"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "moment": "^2.27.0",
     "next": "^9.4.4",
     "next-redux-wrapper": "^6.0.2",
+    "passport": "^0.4.1",
     "pm2": "^4.4.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
