@@ -15,7 +15,7 @@ const googleAuthor = require('./routes/google')
 
 const app = express()
 const prod = process.env.NODE_ENV === 'production'
-const port = prod ? 80 : 3090;
+const port = prod ? 3065 : 3090;
 
 passportConfig()
 dotenv.config()
