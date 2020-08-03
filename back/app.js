@@ -33,14 +33,36 @@ if(prod) {
 	app.use(hpp())
 	app.use(helmet())
 	app.use(cors({
-		origin: 'http://www.webworks.kr',
+		origin: 'https://www.webworks.kr',
 		credentials: true
+	}))
+	app.use(cookieParser(process.env.COOKIE_SECRET))
+	app.use(session({
+		saveUninitialized: false,
+		resave: false,
+		secret: process.env.COOKIE_SECRET,
+		cookie: {
+			httpOnly: true,
+			secure: true,
+			domain: prod && '.webworks.kr'
+		}
 	}))
 } else {
 	app.use(morgan('dev'))
 	app.use(cors({
 		origin: true,
 		credentials: true
+	}))
+	app.use(cookieParser(process.env.COOKIE_SECRET))
+	app.use(session({
+		saveUninitialized: false,
+		resave: false,
+		secret: process.env.COOKIE_SECRET,
+		cookie: {
+			httpOnly: true,
+			secure: false,
+			domain: prod && '.webworks.kr'
+		}
 	}))
 }
 
