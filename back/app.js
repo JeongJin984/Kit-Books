@@ -42,7 +42,6 @@ if(prod) {
 		resave: false,
 		secret: process.env.COOKIE_SECRET,
 		cookie: {
-			httpOnly: true,
 			secure: true,
 			domain: prod && '.webworks.kr'
 		}
