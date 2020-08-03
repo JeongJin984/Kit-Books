@@ -13,14 +13,11 @@ module.exports = () => {
 		callbackURL: "https://api.webworks.kr/google/callback"
   },
   async (accessToken, refreshToken, profile, done) => {
-		console.log("Linked and working!!!!")
-		console.log(profile)
 		try {
 			const user = await User.findOne({ 
 				where: { email: profile.emails[0].value }
 			})
 			if(user) {
-				console.log('success')
 				done(null, user)
 			} 
 		} catch (error) {
