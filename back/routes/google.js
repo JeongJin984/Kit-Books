@@ -16,6 +16,7 @@ router.get('/callback', (req, res, next) => {
       console.log('user did not permit')
       return res.redirect('/failed')
     }
+    console.log(user)
     return req.login(user, (error) => {
       if(error) {
         console.log(error)
