@@ -66,18 +66,6 @@ if(prod) {
 	}))
 }
 
-
-app.use(cookieParser(process.env.COOKIE_SECRET))
-app.use(session({
-	saveUninitialized: false,
-	resave: false,
-	secret: process.env.COOKIE_SECRET,
-	cookie: {
-		httpOnly: true,
-		secure: false,
-		domain: prod && '.webworks.kr'
-	}
-}))
 app.use(passport.initialize())
 app.use(passport.session())
 
