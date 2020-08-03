@@ -80,6 +80,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/good', (req, res) => {
+	console.log(req)
 	res.send(`Welcome ${req.user.name}`)
 })
 
