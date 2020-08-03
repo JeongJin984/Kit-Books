@@ -29,6 +29,7 @@ db.sequelize.sync()
 
 if(prod) {
 	console.log('productionsfs')
+	app.set('trust proxt', 1)
 	app.use(morgan('combined'))
 	app.use(hpp())
 	app.use(helmet())
