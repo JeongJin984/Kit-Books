@@ -28,7 +28,6 @@ db.sequelize.sync()
 	})
 
 if(prod) {
-	console.log('productionsfs')
 	app.set('trust proxy', 1)
 	app.use(morgan('combined'))
 	app.use(hpp())
@@ -82,8 +81,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/good', (req, res) => {
-	console.log(req)
-	res.send(`Welcome me`)
+	res.send(`Welcome ${req.user.name}`)
 })
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
