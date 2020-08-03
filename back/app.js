@@ -33,7 +33,7 @@ if(prod) {
 	app.use(hpp())
 	app.use(helmet())
 	app.use(cors({
-		origin: 'https://www.webworks.kr',
+		origin: 'https://webworks.kr',
 		credentials: true
 	}))
 	app.use(cookieParser(process.env.COOKIE_SECRET))
