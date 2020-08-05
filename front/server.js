@@ -19,7 +19,6 @@ app.prepare()
 		const server = express()
 		dotenv.config()
 		passportConfig()
-		const port = 3000
 
 		if (dev) {
 			server.use(morgan('dev'))
@@ -129,8 +128,8 @@ app.prepare()
 			return handle(req, res)
 		})
 
-		server.listen(port, () => {
-			console.log(`next express port: ${port}
+		server.listen(process.env.PORT, () => {
+			console.log(`next express port: ${process.env.PORT}
 			`)
 		})
 	})
