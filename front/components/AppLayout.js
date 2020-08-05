@@ -27,7 +27,7 @@ const AppLayout = ({ children }) => {
 	const router = useRouter()
 	const dispatch = useDispatch()
 
-	const { isLoggedIn } = useSelector(state => state.user)
+	const { isLoggedIn, me } = useSelector(state => state.user)
 	console.log(isLoggedIn)
 
 	const onClickLogOut = useCallback(
@@ -86,7 +86,7 @@ const AppLayout = ({ children }) => {
 										<Nav className="mr-auto">
 											<NavDropdown title="" id="collasible-nav-dropdown" alignRight={true}>
 												<a style={{marginLeft: "20px"}}>Signed In as</a>
-												<h5 style={{marginLeft: "20px"}}>Jiny</h5>
+												<h5 style={{marginLeft: "20px"}}>{`${me.name}`}</h5>
 												<NavDropdown.Divider />
 												<Link href="/profile"><NavDropdown.Item href="/profile">Profile</NavDropdown.Item></Link>
 												<Link href="/shoppingList"><NavDropdown.Item href="/shoppingList">Shopping-Basket</NavDropdown.Item></Link>
