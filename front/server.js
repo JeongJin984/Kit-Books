@@ -117,11 +117,8 @@ app.prepare()
 		})
 
 		server.get('/user/logout', (req, res) => {
-			if(req.user) {
-				req.logOut()
-				req.session.destroy()
-				res.send('ok')
-			}
+			req.logOut()
+			req.session.destroy()
 			res.send('ok')
 		})
 		

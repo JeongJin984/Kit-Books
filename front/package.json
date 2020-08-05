@@ -4,7 +4,7 @@
   "description": "KIT-Books",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server",
+    "dev": "cross-env PORT=3000 nodemon server",
     "build": "cross-env ANALYZE=true NODE_ENV=production next build",
     "prestart": "npm run build",
     "start": "cross-env NODE_ENV=production PORT=3000 pm2 start server.js"
