@@ -55,6 +55,7 @@ app.prepare()
 		server.use(passport.session())
 
 		server.get('/google/', async (req, res, next) => {
+			console.log('asdfasdf')
 			passport.authenticate('google', { 
 				scope: [
 					'https://www.googleapis.com/auth/userinfo.profile',
