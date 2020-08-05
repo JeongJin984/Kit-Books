@@ -29,12 +29,12 @@ app.prepare()
 				secret: process.env.COOKIE_SECRET
 			}))	
 		} else {
-			app.set('trust proxy', 1)
-			app.use(morgan('combined'))
-			app.use(hpp())
-			app.use(helmet())
-			app.use(cookieParser(process.env.COOKIE_SECRET))
-			app.use(session({
+			server.set('trust proxy', 1)
+			server.use(morgan('combined'))
+			server.use(hpp())
+			server.use(helmet())
+			server.use(cookieParser(process.env.COOKIE_SECRET))
+			server.use(session({
 				saveUninitialized: false,
 				resave: false,
 				secret: process.env.COOKIE_SECRET,
