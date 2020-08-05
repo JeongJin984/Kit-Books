@@ -7,7 +7,7 @@
     "dev": "nodemon",
     "build": "cross-env ANALYZE=true NODE_ENV=production next build",
     "prestart": "npm run build",
-    "start": "cross-env NODE_ENV=production pm2 start server.js"
+    "start": "cross-env NODE_ENV=production PORT=3000 pm2 start server.js"
   },
   "repository": {
     "type": "git",
