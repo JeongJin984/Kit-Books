@@ -11,15 +11,15 @@ const hpp = require('hpp')
 const helmet = require('helmet')
 const passportConfig = require('./passport')
 
-const port = 3000
 const app = next({ dev })
 const handle = app.getRequestHandler()
-dotenv.config()
-passportConfig()
 
 app.prepare()
 	.then(() => {
 		const server = express()
+		dotenv.config()
+		passportConfig()
+		const port = 3000
 
 		if (dev) {
 			server.use(morgan('dev'))
