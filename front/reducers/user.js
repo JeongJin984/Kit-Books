@@ -15,9 +15,9 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE'
 
-export const GOOGLE_LOGIN_REQUEST = 'GOOGLE_LOGIN_REQUEST'
-export const GOOGLE_LOGIN_SUCCESS = 'GOOGLE_LOGIN_SUCCESS'
-export const GOOGLE_LOGIN_FAILURE = 'GOOGLE_LOGIN_FAILURE'
+export const LOAD_MY_GOOGLE_INFO_REQUERST = 'LOAD_MY_GOOGLE_INFO_FAILURE'
+export const LOAD_MY_GOOGLE_INFO_SUCCESS = 'LOAD_MY_GOOGLE_INFO_SUCCESS'
+export const LOAD_MY_GOOGLE_INFO_FAILURE = 'LOAD_MY_GOOGLE_INFO_FAILURE'
 
 export const SIGN_IN_REQUEST = 'SIGNIN_REQUEST'
 export const SIGN_IN_SUCCESS = 'SIGNIN_SUCCESS'
@@ -39,8 +39,9 @@ const userReducer = (state = initialState, action) => {
 				draft.isLoggedIn = true
 				break
 	
-			case GOOGLE_LOGIN_SUCCESS :
-				draft.isLoggedIn = true
+			case LOAD_MY_GOOGLE_INFO_SUCCESS :
+				draft.isLoggedIn = action.data ? true : false
+				draft.me = action.data
 				break
 
 			case LOAD_MY_INFO_SUCCESS : 

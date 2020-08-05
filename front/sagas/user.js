@@ -8,19 +8,20 @@ import {
 	SIGN_IN_SUCCESS, 
 	SIGN_IN_FAILURE, 
 	
-	GOOGLE_LOGIN_REQUEST, 
-	GOOGLE_LOGIN_SUCCESS, 
-	GOOGLE_LOGIN_FAILURE, 
-	
 	LOAD_MY_INFO_REQUEST, 
 	LOAD_MY_INFO_SUCCESS, 
 	LOAD_MY_INFO_FAILURE, 
+
+	LOAD_MY_GOOGLE_INFO_REQUERST,
+	LOAD_MY_GOOGLE_INFO_SUCCESS,
+	LOAD_MY_GOOGLE_INFO_FAILURE,
 	
 	LOGOUT_REQUEST, 
 	LOGOUT_SUCCESS, 
 	LOGOUT_FAILURE } from '../reducers/user'
 
 import axios from 'axios'
+const { frontURL } = require('../config/config')
 
 function logInAPI(data) {
 	return axios.post('/user/login', data)
@@ -46,13 +47,18 @@ function* watchLogIn() {
 }
 
 function logOutAPI() {
-	return axios.get("/user/logout")
+	axios.get("/user/logout")
+	axios({
+		method: 'get',
+		url: '/user/logout',
+		baseURL: frontURL
+	})
+	return true
 }
 
 function* logOut() {
 	try {
-		const result = yield call(logOutAPI)
-		console.log(result)
+		yield call(logOutAPI)
 		yield put({
 			type: LOGOUT_SUCCESS
 		})
@@ -89,29 +95,6 @@ function* watchSignIn() {
 	yield takeLatest(SIGN_IN_REQUEST, signIn)
 }
 
-function googleLogInAPI() {
-  return axios.get('/google')
-}
-
-function* googleLogIn() {
-	try {
-		const result = yield call(googleLogInAPI)
-		yield put({
-			type: GOOGLE_LOGIN_SUCCESS,
-			data: result.data
-		})
-	} catch (error) {
-		yield put({
-			type: GOOGLE_LOGIN_FAILURE,
-			error: error
-		})
-	}
-}
-
-function* watchGoogleLogIn() {
-	yield takeLatest(GOOGLE_LOGIN_REQUEST, googleLogIn)
-}
-
 function loadMyInfoAPI() {
 	return axios.get('/user/')
 }
@@ -139,12 +122,39 @@ function* watchLoadMyInfo() {
 	yield takeLatest(LOAD_MY_INFO_REQUEST, loadMyInfo)
 }
 
+function loadMyGoogleInfoAPI() {
+	return axios({
+		method: 'get',
+		url: '/user/',
+		baseURL: frontURL
+	})
+}
+
+function* loadMyGoogleInfo() {
+	try {
+		const result = yield call(loadMyGoogleInfoAPI)
+		yield put({
+			type: LOAD_MY_GOOGLE_INFO_SUCCESS,
+			data: result.data
+		})
+	} catch (error) {
+		yield put({
+			type: LOAD_MY_GOOGLE_INFO_FAILURE,
+			error: error
+		})
+	}
+}
+
+function* watchLoadMyGoogleInfo() {
+	yield takeLatest(LOAD_MY_GOOGLE_INFO_REQUERST, loadMyGoogleInfo)
+}
+
 export default function* userSaga() {
 	yield all([
 		fork(watchLogIn),
 		fork(watchLogOut),
 		fork(watchSignIn),
-		fork(watchGoogleLogIn),
-		fork(watchLoadMyInfo)
+		fork(watchLoadMyInfo),
+		fork(watchLoadMyGoogleInfo)
 	])
 }

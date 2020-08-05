@@ -21,7 +21,6 @@ router.get('/', async (req, res) => {
 					}
 				]
 			})
-
 			res.status(200).json(user)	
 		} else {
 			res.status(200).json(null)
@@ -33,9 +32,7 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/logIn', (req, res, next) => {
-	console.log('passport linked!!!!!!000000000')
 	passport.authenticate('local', (error, user, info) => {
-		console.log('passport linked!!!!!!1111111')
 		if(error) {
 			console.error(error)
 			return next(error)
@@ -48,7 +45,6 @@ router.post('/logIn', (req, res, next) => {
 				console.log(loginError)
 				return next(loginError)
 			}
-			console.log('passport linked!!!!!2222222222')
 			return res.json(user)
 		})
 	})(req, res, next)
@@ -74,6 +70,72 @@ router.post('/signIn', isNotLoggedIn, async (req, res) => {
 		birth: req.body.birth,
 	}).catch((error) => res.error=error)
 	res.send(' ')
+})
+
+router.post('/google/logIn/', async (req, res) => {
+	const hashedPassword = await bcrypt.hash(req.body.profile.displayName, 12)
+	try {
+		const user = await User.findOne({
+			where: { email: req.body.profile.emails[0].value },
+			attributes: {
+				exclude: [ 'password', 'collegeId', 'createdAt', 'updatedAt' ],
+			},
+			include: [
+				{ 
+					model: College,
+					attributes: ['name']
+				}
+			]
+		})
+		if(!user) {
+			await User.create({
+				email: req.body.profile.emails[0].value,
+				name: req.body.profile.displayName,
+				password: hashedPassword,
+				jender: "NULL",
+				phonenum: "NULL",
+				collegeId: 1,
+				grade: 0,
+				birth: "2000-01-11 15:00:00",
+			})
+			const createduser = await User.findOne({
+				where: { email: req.body.profile.emails[0].value },
+				attributes: {
+					exclude: [ 'password', 'collegeId', 'createdAt', 'updatedAt' ],
+				},
+				include: [
+					{ 
+						model: College,
+						attributes: ['name']
+					}
+				]
+			})
+			return res.status(200).json(createduser)
+		}
+		return res.status(200).json(user)
+	} catch (error) {
+		res.status(200).json(null)
+	}
+})
+
+router.post('/google/:id', async (req, res) => {
+	try {
+		const user = await User.findOne({
+			where: { id: req.params.id },
+			attributes: {
+				exclude: [ 'password', 'collegeId', 'createdAt', 'updatedAt' ],
+			},
+			include: [
+				{ 
+					model: College,
+					attributes: ['name']
+				}
+			]
+		})
+		res.status(200).json(user)
+	} catch (error) {
+		res.status(200).json(null)
+	}
 })
 
 module.exports = router

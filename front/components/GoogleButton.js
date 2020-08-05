@@ -2,18 +2,14 @@
 import React, { useCallback } from 'react'
 import { GoogleLoginButton } from 'react-social-login-buttons'
 
-import { useDispatch } from 'react-redux'
-
-import { GOOGLE_LOGIN_REQUEST } from '../reducers/user'
+import { useRouter } from 'next/dist/client/router'
 
 const GoogleLogInButton = () => {
-	const dispatch = useDispatch()
+	const router = useRouter()
 
 	const onClickGoogleLogIn = useCallback(
 		() => {
-			dispatch({
-				type: GOOGLE_LOGIN_REQUEST
-			})
+			router.push('/google/')
 		},
 		[],
 	)

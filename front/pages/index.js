@@ -7,7 +7,7 @@ import { Jumbotron, Button, Image } from 'react-bootstrap'
 import IssueCard from '../components/IssueCard'
 import styled from '@emotion/styled'
 import AppLayout from '../components/AppLayout'
-import { LOAD_MY_INFO_REQUEST } from '../reducers/user'
+import { LOAD_MY_INFO_REQUEST, LOAD_MY_GOOGLE_INFO_REQUERST } from '../reducers/user'
 
 import wrapper from '../store/configureStore'
 import { END } from 'redux-saga'
@@ -83,6 +83,11 @@ export const getServerSideProps = wrapper.getServerSideProps( async (context) =>
 	context.store.dispatch({
 		type: LOAD_MY_INFO_REQUEST
 	})
+
+	context.store.dispatch({
+		type:	LOAD_MY_GOOGLE_INFO_REQUERST
+	})
+
 	context.store.dispatch(END)
 	await context.store.sagaTask.toPromise()
 })

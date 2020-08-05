@@ -10,8 +10,6 @@ const dotenv = require('dotenv')
 const userRouter = require('./routes/user')
 const helmet = require('helmet')
 const hpp = require('hpp')
-const googleAuthor = require('./routes/google')
-
 
 const app = express()
 const prod = process.env.NODE_ENV === 'production'
@@ -74,14 +72,9 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true }))
 
 app.use('/user', userRouter)
-app.use('/google', googleAuthor)
 
 app.get('/', (req, res) => {
 	res.send('hello express')
-})
-
-app.get('/good', (req, res) => {
-	res.send(`Welcome ${req.user.name}`)
 })
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))

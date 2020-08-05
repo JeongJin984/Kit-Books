@@ -4,10 +4,9 @@
   "description": "KIT-Books",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server",
-    "dev2": "next",
+    "dev": "nodemon",
     "build": "cross-env ANALYZE=true NODE_ENV=production next build",
-    "start": "cross-env NODE_ENV=production next start -p 3060"
+    "start": "cross-env NODE_ENV=production pm2 start server.js"
   },
   "repository": {
     "type": "git",
@@ -25,13 +24,20 @@
     "@next/bundle-analyzer": "^9.5.1",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
+    "cookie-parser": "^1.4.5",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "helmet": "^4.0.0",
+    "hpp": "^0.2.3",
     "immer": "^7.0.7",
     "moment": "^2.27.0",
+    "morgan": "^1.10.0",
     "next": "^9.4.4",
     "next-redux-wrapper": "^6.0.2",
     "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
     "pm2": "^4.4.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
