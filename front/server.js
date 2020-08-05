@@ -29,12 +29,12 @@ app.prepare()
 				secret: process.env.COOKIE_SECRET
 			}))	
 		} else {
-			server.set('trust proxy', 1)
-			server.use(hpp())
-			server.use(helmet())
-			server.use(morgan('combined'))
-			server.use(cookieParser(process.env.COOKIE_SECRET))
-			server.use(session({
+			app.set('trust proxy', 1)
+			app.use(morgan('combined'))
+			app.use(hpp())
+			app.use(helmet())
+			app.use(cookieParser(process.env.COOKIE_SECRET))
+			app.use(session({
 				saveUninitialized: false,
 				resave: false,
 				secret: process.env.COOKIE_SECRET,
@@ -42,16 +42,16 @@ app.prepare()
 				cookie: {
 					httpOnly: true,
 					secure: true,
-					domain: dev && '.webworks.kr'
+					domain: '.webworks.kr'
 				}
 			}))
 		}
 
-		server.use(express.json())
-		server.use(express.urlencoded({extended: true }))
-
 		server.use(passport.initialize())
 		server.use(passport.session())
+
+		server.use(express.json())
+		server.use(express.urlencoded({extended: true }))
 
 		server.get('/google/', async (req, res, next) => {
 			console.log('/google called')
