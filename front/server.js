@@ -11,7 +11,7 @@ const hpp = require('hpp')
 const helmet = require('helmet')
 const passportConfig = require('./passport')
 
-const port = 3000
+const port = dev ? 3000 : 80
 const app = next({ dev })
 const handle = app.getRequestHandler()
 dotenv.config()
