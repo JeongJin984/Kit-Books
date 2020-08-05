@@ -55,13 +55,14 @@ app.prepare()
 		server.use(passport.session())
 
 		server.get('/google/', async (req, res, next) => {
-			console.log('asdfasdf')
+			console.log('/google called')
 			passport.authenticate('google', { 
 				scope: [
 					'https://www.googleapis.com/auth/userinfo.profile',
 					'https://www.googleapis.com/auth/userinfo.email'
 				] 
 			}, (err, user) => {
+				console.log('/result called')
 				if(err) {
 					console.log(err)
 					return res.redirect('/good')
@@ -81,6 +82,7 @@ app.prepare()
 		})
 
 		server.get('/google/callback', (req, res, next) => {
+			console.log('/callback called')
 			passport.authenticate('google', (err, user) => {
 				if(err) {
 					console.log(err)
@@ -102,6 +104,7 @@ app.prepare()
 		});
 
 		server.get('/good', (req, res) => {
+			console.log('success called')
 			res.redirect('/')
 		})
 

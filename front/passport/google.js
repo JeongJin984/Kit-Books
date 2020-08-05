@@ -14,6 +14,7 @@ module.exports = () => {
 		callbackURL: callbackURL
   },
   async (accessToken, refreshToken, profile, done) => {
+		console.log('/passport called')
 		try {
 			const user = await axios.post(`/user/google/logIn`, { profile: profile })
 			const User = user.data

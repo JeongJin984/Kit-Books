@@ -4,6 +4,7 @@ const axios = require('axios')
 
 module.exports = () => {
 	passport.serializeUser((user, done) => {
+		console.log('/serialize called')
 		done(null, user.id)
 	})
 	passport.deserializeUser(async (id, done) => {
