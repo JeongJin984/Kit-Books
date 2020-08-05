@@ -112,7 +112,7 @@ app.prepare()
 		})
 
 		server.get('/user', (req,res) => {
-			console.log('asdfasdfasdfasdf')
+			console.log(req.user)
 			res.json(req.user)
 		})
 
