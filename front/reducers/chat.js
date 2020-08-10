@@ -14,6 +14,8 @@ export const POST_CHATS_REQUEST = "POST_CHATS_REQUEST"
 export const POST_CHATS_SUCCESS = "POST_CHATS_SUCCESS"
 export const POST_CHATS_FAILURE = "POST_CHATS_FAILURE"
 
+export const USER_ENTER = "USER_ENTER"
+
 const chatReducer = (state = initialState, action) => {
 	return produce(state, (draft) => {
 		switch (action.type) {
@@ -21,8 +23,17 @@ const chatReducer = (state = initialState, action) => {
 				draft.myRoom = action.data
 				draft.curRoomId = action.id
 				break;
+
 			case POST_CHATS_SUCCESS:
-				draft.myRoom.push(action.data)
+				break;
+
+			case USER_ENTER: 
+				draft.myRoom.push({
+					sender: action.data.sender,
+					receiver: "a",
+					message: action.data.message,
+					chatRoomId: draft.curRoomId
+				})
 				break;
 			default:
 				break;

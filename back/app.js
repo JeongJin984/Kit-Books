@@ -79,5 +79,8 @@ app.get('/', (req, res) => {
 	res.send('hello express')
 })
 
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
+const server = require('http').createServer(app)
+require('./server')(server)
+
+server.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
 

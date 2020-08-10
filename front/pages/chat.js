@@ -1,8 +1,9 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import AppLayout from '../components/AppLayout'
 import ChatLayout from '../components/ChatLayout'
 import styled from '@emotion/styled'
 import axios from 'axios'
+import io from 'socket.io-client'
 
 import { Row, Col, ListGroup, Navbar, Image, Form, Button, Container, Modal } from 'react-bootstrap'
 import ChatProfile from '../components/ChatProfile'
@@ -13,9 +14,9 @@ import SendedChat from '../components/chat/SendedChat'
 import wrapper from '../store/configureStore'
 import { END } from 'redux-saga'
 import { LOAD_MY_GOOGLE_INFO_REQUERST, LOAD_MY_INFO_REQUEST } from '../reducers/user'
-import { LOAD_CHATS_REQUEST, POST_CHATS_REQUEST } from '../reducers/chat'
+import { LOAD_CHATS_REQUEST, POST_CHATS_REQUEST, USER_ENTER } from '../reducers/chat'
 import CreateRoom from '../components/CreateRoom'
-import { useRouter } from 'next/router'
+import { backURL } from '../config/config'
 
 const StyledListItem = styled(ListGroup.Item)`
 	border: 0px;
@@ -52,16 +53,35 @@ const ChatTitleBox = styled(ListGroup.Item)`
 	border: 0px;
 	border-bottom: 1px solid #DFDFDF;
 `
-const Chat = () => {
-	const router = useRouter()
 
+let socket
+
+const Chat = () => {
 	const { myRoom, curRoomId } = useSelector(state => state.chat)
 	const { ChatRooms, name } = useSelector(state => state.user.me)
+
 	const [show, setShow] = useState(false);
 
-	const handleClose = () => {
-		setShow(false);
-		router.push("/chat")
+	useEffect(() => {
+		socket = io(backURL)
+		socket.on('message', ({ sender, message}) => {
+			console.log('socket On!!!')
+			dispatch({
+				type:USER_ENTER,
+				data: {
+					sender: sender,
+					message: message
+				}
+			})
+		})
+		return () => {
+			socket.emit('disconnect')
+			socket.off()
+		}
+	}, [backURL])
+
+	const handleClose = async () => {
+		await setShow(false);
 	}
 	const handleShow = () => setShow(true);
 
@@ -71,28 +91,37 @@ const Chat = () => {
 	const onSubmitChat = useCallback(
 		(e) => {
 			e.preventDefault();
-			chatData = {
-				sender: name,
-				receiver: 'a',
-				message: e.target.message.value,
-				chatRoomId: curRoomId
+			if(e.target.message.value) {
+				chatData = {
+					sender: name,
+					receiver: 'a',
+					message: e.target.message.value,
+					chatRoomId: curRoomId
+				}
+				dispatch({
+					type: POST_CHATS_REQUEST,
+					data: chatData
+				})
+	
+				socket.emit('sendMessage', { name: name, room: curRoomId, text: e.target.message.value }, ()=> {})
 			}
-			dispatch({
-				type: POST_CHATS_REQUEST,
-				data: chatData
-			})
 		},
 		[curRoomId, chatData],
 	)
 
 	const onClickChatRoom = useCallback(
-		(e) => {
-			dispatch({
+		async (e) => {
+			const id = e.target.id
+			await dispatch({
 				type: LOAD_CHATS_REQUEST,
-				data: e.target.id
+				data: id
+			})
+			
+			socket.emit('join', {name: name, room: id}, ()=>{
+
 			})
 		},
-		[],
+		[name],
 	)
 
 	return(

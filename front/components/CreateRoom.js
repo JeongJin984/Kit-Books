@@ -36,18 +36,18 @@ const CreateRoom = ({ handleClose }) => {
 	)
 	
 	const onClickConfirm = useCallback(
-		() => {
+		async () => {
 			var invitedId = []
 			invited.map(v => invitedId.push(v.id))
 			console.log(invitedId)
-			dispatch({
+			await dispatch({
 				type: CREATE_CHATROOM_REQUEST,
 				data: {
 					id: id,
 					list: invitedId
 				}
 			})
-			handleClose()
+			await handleClose()
 		},
 		[invited],
 	)
