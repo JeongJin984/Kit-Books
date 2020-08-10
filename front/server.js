@@ -29,6 +29,7 @@ app.prepare()
 				secret: process.env.COOKIE_SECRET
 			}))	
 		} else {
+			console.log('uququququququququ')
 			server.set('trust proxy', 1)
 			server.use(morgan('combined'))
 			server.use(hpp())
