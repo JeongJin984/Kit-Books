@@ -36,7 +36,7 @@ app.prepare()
 			server.use(helmet())
 			server.use(helmet.contentSecurityPolicy({
 				directives: {
-					defaultSrc: ["'self'"],
+					defaultSrc: ["'self'", "'unsafe-inline"],
 					scriptSrc: ["'self'", "webworks.kr"],
 					objectSrc: ["'none'"],
 					connectSrc: ["webworks.kr", "api.webworks.kr"]
