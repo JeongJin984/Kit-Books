@@ -36,7 +36,7 @@ app.prepare()
 			server.use(helmet())
 			server.use(helmet.contentSecurityPolicy({
 				directives: {
-					defaultSrc: ["'self'", "webworks.kr"]
+					defaultSrc: ["'unsafe-inline'"]
 				}
 			}))
 			server.use(cookieParser(process.env.COOKIE_SECRET))
