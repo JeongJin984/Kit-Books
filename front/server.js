@@ -34,6 +34,11 @@ app.prepare()
 			server.use(morgan('combined'))
 			server.use(hpp())
 			server.use(helmet())
+			app.use(helmet.contentSecurityPolicy({
+				directives: {
+					defaultSrc: ["'self'", "webworks.kr"]
+				}
+			}))
 			server.use(cookieParser(process.env.COOKIE_SECRET))
 			server.use(session({
 				saveUninitialized: false,
