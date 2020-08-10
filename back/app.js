@@ -11,6 +11,7 @@ const userRouter = require('./routes/user')
 const chatRouter = require('./routes/chat')
 const helmet = require('helmet')
 const hpp = require('hpp')
+const fs = require('fs')
 
 const app = express()
 const prod = process.env.NODE_ENV === 'production'
@@ -79,7 +80,10 @@ app.get('/', (req, res) => {
 	res.send('hello express')
 })
 
-const server = require('http').createServer(app)
+const server = prod? require('https').createServer({
+		key: fs.readFileSync('./etc/letsencrypt/live/api.webworks.kr/fullchain.pem'),
+		cert: fs.readFileSync('./etc/letsencrypt/live/api.webworks.kr/privkey.pem')
+	}, app) : require('http').createServer(app)
 require('./server')(server)
 
 server.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
