@@ -16,6 +16,10 @@ const fs = require('fs')
 const app = express()
 const prod = process.env.NODE_ENV === 'production'
 const port = prod ? 3065 : 3090;
+const option = {
+	key: fs.readFileSync('./etc/letsencrypt/live/api.webworks.kr/fullchain.pem'),
+	cert: fs.readFileSync('./etc/letsencrypt/live/api.webworks.kr/privkey.pem')
+}
 
 passportConfig()
 dotenv.config()
@@ -80,10 +84,14 @@ app.get('/', (req, res) => {
 	res.send('hello express')
 })
 
-const server = prod? require('https').createServer({
-		key: fs.readFileSync('./etc/letsencrypt/live/api.webworks.kr/fullchain.pem'),
-		cert: fs.readFileSync('./etc/letsencrypt/live/api.webworks.kr/privkey.pem')
-	}, app) : require('http').createServer(app)
+let server
+
+if(prod) {
+	server = require('https').createServer(option, app)
+} else {
+	server = require('http').createServer(app)
+}
+
 require('./server')(server)
 
 server.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
