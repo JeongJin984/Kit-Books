@@ -34,11 +34,6 @@ app.prepare()
 			server.use(morgan('combined'))
 			server.use(hpp())
 			server.use(helmet())
-			server.use(helmet.contentSecurityPolicy({
-				directives: {
-					defaultSrc: ["'self'"]
-				}
-			}))
 			server.use(cookieParser(process.env.COOKIE_SECRET))
 			server.use(session({
 				saveUninitialized: false,

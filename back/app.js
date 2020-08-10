@@ -31,11 +31,6 @@ if(prod) {
 	app.use(morgan('combined'))
 	app.use(hpp())
 	app.use(helmet())
-	app.use(helmet.contentSecurityPolicy({
-		directives: {
-			defaultSrc: ["'self'", "webworks.kr"]
-		}
-	}))
 	app.use(cors({
 		origin: 'https://webworks.kr',
 		credentials: true
