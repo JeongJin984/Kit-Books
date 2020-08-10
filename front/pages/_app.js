@@ -12,8 +12,8 @@ const App = ({ Component }) => {
 	return(
 		<div>
 			<Head>
+				<meta charSet="utf-8" />
 				<title>KitBooks</title>
-				<meta charSet="utf-8" ></meta>
 			</Head>    
 			<Component/>
 		</div>
