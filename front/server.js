@@ -34,7 +34,7 @@ app.prepare()
 			server.use(morgan('combined'))
 			server.use(hpp())
 			server.use(helmet())
-			app.use(helmet.contentSecurityPolicy({
+			server.use(helmet.contentSecurityPolicy({
 				directives: {
 					defaultSrc: ["'self'", "webworks.kr"]
 				}
