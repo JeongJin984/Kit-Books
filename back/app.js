@@ -21,6 +21,8 @@ const option = {
 	cert: fs.readFileSync('/etc/letsencrypt/live/api.webworks.kr/privkey.pem')
 }
 
+console.log(fs.readFileSync('/etc/letsencrypt/live/api.webworks.kr/fullchain.pem'))
+
 passportConfig()
 dotenv.config()
 db.sequelize.sync()
