@@ -2,6 +2,7 @@ import { HYDRATE } from 'next-redux-wrapper'
 import { combineReducers } from 'redux'
 
 import user from './user'
+import chat from './chat'
 
 const reducer = (state, action) => {
 	switch (action.type) {
@@ -11,6 +12,7 @@ const reducer = (state, action) => {
 		default: {
 			const combineReducer = combineReducers({
 				user,
+				chat
 			})
 			return combineReducer(state, action)
 		}

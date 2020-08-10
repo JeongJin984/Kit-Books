@@ -18,7 +18,15 @@ import {
 	
 	LOGOUT_REQUEST, 
 	LOGOUT_SUCCESS, 
-	LOGOUT_FAILURE } from '../reducers/user'
+	LOGOUT_FAILURE, 
+
+	ADD_FOLLOWING_REQUEST,
+	ADD_FOLLOWING_SUCCESS,
+	ADD_FOLLOWING_FAILURE,
+
+	CREATE_CHATROOM_REQUEST,
+	CREATE_CHATROOM_SUCCESS,
+	CREATE_CHATROOM_FAILURE} from '../reducers/user'
 
 import axios from 'axios'
 const { frontURL } = require('../config/config')
@@ -149,12 +157,60 @@ function* watchLoadMyGoogleInfo() {
 	yield takeLatest(LOAD_MY_GOOGLE_INFO_REQUERST, loadMyGoogleInfo)
 }
 
+function addFollowingAPI(data) {
+	return axios.post(`/user/follow/${data.id}`, data.list)
+}
+
+function* addFollowing(action) {
+	try {
+		yield call(addFollowingAPI, action.data)
+		yield put({
+			type: ADD_FOLLOWING_SUCCESS,
+			data: action.data.list
+		})
+	} catch (error) {
+		yield put({
+			type: ADD_FOLLOWING_FAILURE,
+			error: error
+		})
+	}
+}
+
+function* watchAddFollowing() {
+	yield takeLatest(ADD_FOLLOWING_REQUEST, addFollowing)
+}
+
+function createChatRoomAPI(data) {
+	return axios.post(`/user/chatroom/${data.id}`, data.list)
+}
+
+function* createChatRoom(action) {
+	try {
+		yield call(createChatRoomAPI, action.data)
+		yield put({
+			type: CREATE_CHATROOM_SUCCESS,
+			data: action.data.list
+		})
+	} catch (error) {
+		yield put({
+			type: CREATE_CHATROOM_FAILURE,
+			error: error
+		})
+	}
+}
+
+function* watchCreateChatRoom() {
+	yield takeLatest(CREATE_CHATROOM_REQUEST, createChatRoom)
+}
+
 export default function* userSaga() {
 	yield all([
 		fork(watchLogIn),
 		fork(watchLogOut),
 		fork(watchSignIn),
 		fork(watchLoadMyInfo),
-		fork(watchLoadMyGoogleInfo)
+		fork(watchLoadMyGoogleInfo),
+		fork(watchAddFollowing),
+		fork(watchCreateChatRoom)
 	])
 }

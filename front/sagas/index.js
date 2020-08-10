@@ -1,6 +1,7 @@
 import { all, fork } from 'redux-saga/effects'
 
 import userSaga from './user'
+import chattingSaga from './chat'
 
 import axios from 'axios'
 const { backURL } = require('../config/config')
@@ -10,6 +11,7 @@ axios.defaults.withCredentials = true
 
 export default function* rootSaga() {
 	yield all([
-		fork(userSaga)
+		fork(userSaga),
+		fork(chattingSaga)
 	])
 }

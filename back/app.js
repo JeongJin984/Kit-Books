@@ -8,6 +8,7 @@ const passport = require("passport")
 const passportConfig = require('./passport')
 const dotenv = require('dotenv')
 const userRouter = require('./routes/user')
+const chatRouter = require('./routes/chat')
 const helmet = require('helmet')
 const hpp = require('hpp')
 
@@ -72,6 +73,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true }))
 
 app.use('/user', userRouter)
+app.use('/chat', chatRouter)
 
 app.get('/', (req, res) => {
 	res.send('hello express')

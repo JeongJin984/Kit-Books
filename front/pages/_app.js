@@ -13,8 +13,8 @@ const App = ({ Component }) => {
 		<div>
 			<Head>
 				<title>KitBooks</title>
-				<meta charSet="utf-8"></meta>
-			</Head>
+				<meta charSet="utf-8" ></meta>
+			</Head>    
 			<Component/>
 		</div>
 	)

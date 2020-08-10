@@ -1,14 +1,15 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import { Col, Navbar, Nav, NavDropdown, Form, FormControl, Button, Container, Row, Image} from 'react-bootstrap'
+import { Col, Navbar, Nav, NavDropdown, Form, FormControl, Button, Container, Row, Image, Modal} from 'react-bootstrap'
 
 import styled from '@emotion/styled'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { LOGOUT_REQUEST } from '../reducers/user'
+import AddFriends from './AddFriends'
 
 const SignButtonWrapper = styled.div`
 	margin-top: 18px;
@@ -31,13 +32,19 @@ const AppLayout = ({ children }) => {
 	console.log(isLoggedIn)
 
 	const onClickLogOut = useCallback(
-		() => {
+		async () => {
+			await router.push("/")
 			dispatch({
 				type: LOGOUT_REQUEST
 			})
 		},
 		[],
 	)
+
+	const [show, setShow] = useState(false);
+
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
 
 	return(
 		<div>
@@ -68,7 +75,8 @@ const AppLayout = ({ children }) => {
 							<Navbar.Collapse id="basic-navbar-nav">
 								<Nav className="mr-auto">
 									<Link href="/"><Nav.Link href="/">Home</Nav.Link></Link>
-									<Link href="/bookStore"><Nav.Link href="bookStore">Store</Nav.Link></Link>
+									<Link href="/bookStore"><Nav.Link href="/chat">Store</Nav.Link></Link>
+									<Link href="/chat"><Nav.Link href="/chat">Chat</Nav.Link></Link>
 								</Nav>
 								<Form inline>
 									<FormControl type="text" placeholder="Search" className="mr-sm-2" />
@@ -90,6 +98,15 @@ const AppLayout = ({ children }) => {
 												<NavDropdown.Divider />
 												<Link href="/profile"><NavDropdown.Item href="/profile">Profile</NavDropdown.Item></Link>
 												<Link href="/shoppingList"><NavDropdown.Item href="/shoppingList">Shopping-Basket</NavDropdown.Item></Link>
+												<NavDropdown.Item onClick={handleShow}>Add-Friend</NavDropdown.Item>
+												<Modal show={show} onHide={handleClose}>
+													<Modal.Header closeButton>
+														<Modal.Title>Add Friend</Modal.Title>
+													</Modal.Header>
+													<Modal.Body>
+														<AddFriends/>
+													</Modal.Body>
+												</Modal>
 												<NavDropdown.Divider />
 												<Link href="/"><NavDropdown.Item href="/" onClick={onClickLogOut}>Log-Out</NavDropdown.Item></Link>
 											</NavDropdown>

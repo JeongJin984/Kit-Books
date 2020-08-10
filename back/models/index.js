@@ -15,6 +15,8 @@ db.College = require('./college')(sequelize, Sequelize)
 db.ProfileImage = require('./profileimage')(sequelize, Sequelize)
 db.User = require('./user')(sequelize, Sequelize)
 db.Warehouse = require('./warehouse')(sequelize, Sequelize)
+db.Chat = require('./chat')(sequelize, Sequelize)
+db.ChatRoom = require('./chatRoom')(sequelize, Sequelize)
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

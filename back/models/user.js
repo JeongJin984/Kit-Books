@@ -1,5 +1,3 @@
-const { sequelize } = require(".");
-
 module.exports = (sequelize, DataTypes) => {
 	const User = sequelize.define('users', {
 		email: {
@@ -14,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
 		password: {
 			type: DataTypes.STRING(100),
 			allowNull: false
+		},
+		userCode: {
+			type: DataTypes.STRING(100),
+			allowNull: false,
+			unique: true,
 		},
 		jender: {
 			type: DataTypes.STRING(10),
@@ -40,6 +43,9 @@ module.exports = (sequelize, DataTypes) => {
 		db.User.hasMany(db.Book)
 		db.User.hasMany(db.ProfileImage)
 		db.User.belongsToMany(db.Book, { through: "Shoppingbasket", as: "Selected"})
+		db.User.belongsToMany(db.ChatRoom, { through: "ChatRoomList", as: "ChatRooms", foreignKey: "userId"})
+    db.User.belongsToMany(db.User, { through: 'Follow', as: 'Followers', foreignKey: 'FollowingId' });
+    db.User.belongsToMany(db.User, { through: 'Follow', as: 'Followings', foreignKey: 'FollowerId' });
 	}
 	return User
 }
