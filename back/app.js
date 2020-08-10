@@ -17,8 +17,8 @@ const app = express()
 const prod = process.env.NODE_ENV === 'production'
 const port = prod ? 3065 : 3090;
 const option = {
-	key: fs.readFileSync(__dirname+'/etc/letsencrypt/live/api.webworks.kr/fullchain.pem'),
-	cert: fs.readFileSync(__dirname+'/etc/letsencrypt/live/api.webworks.kr/privkey.pem')
+	key: fs.readFileSync('/etc/letsencrypt/live/api.webworks.kr/fullchain.pem'),
+	cert: fs.readFileSync('/etc/letsencrypt/live/api.webworks.kr/privkey.pem')
 }
 
 passportConfig()
