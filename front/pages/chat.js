@@ -37,12 +37,15 @@ const ChattingList = styled(Col)`
 	padding:0px;
 	height: 800px;
 	postition: relative;
+	overflow: auto;
 `
 
 const ChattingBox = styled(Col)`
 	position: relative;
 	border: 1px solid gray;
 	padding: 0px;
+	height: 800px;
+	overflow: auto;
 `
 
 const ChatTitleBox = styled(ListGroup.Item)`
@@ -97,7 +100,7 @@ const Chat = () => {
 			<ChatLayout>
 			<Row>
 				<ChattingList xs={4}>
-					<ListGroup defaultActiveKey="#link1" style={{ margin: "0px"}}>
+					<ListGroup defaultActiveKey="#link1" style={{ margin: "0px", marginBottom: "60px"}}>
 						<TitleList as="li" disabled>
 							<h6>Direct</h6>
 						</TitleList>
@@ -109,7 +112,7 @@ const Chat = () => {
 							)
 						})}
 					</ListGroup>
-					<div style={{position: "absolute", bottom: "3px", width: "100%", padding: "10px"}}>
+					<div style={{position: "absolute", bottom: `${ChatRooms.length > 7 ? -90*(ChatRooms.length - 7) : 0}`+`px`, width: "100%", padding: "10px"}}>
 						<Button variant="outline-primary" size="lg" block onClick={handleShow}>
 							New Room
 						</Button>
@@ -118,14 +121,14 @@ const Chat = () => {
 								<Modal.Title>Creating ChattingRoom</Modal.Title>
 							</Modal.Header>
 							<Modal.Body>
-								<CreateRoom/>
+								<CreateRoom handleClose={handleClose}/>
 							</Modal.Body>
 						</Modal>
 					</div>
 				</ChattingList>
 				<ChattingBox xs={8}>
 					<ListGroup defaultActiveKey="#link1" style={{ margin: "0px"}}>
-					{ curRoomId < 0 ? 
+						{curRoomId < 0 ? 
 							<ChatTitleBox as="li" disabled >
 								<Navbar style={{padding: "0px", marginLeft: "10px"}}>
 									<Navbar.Brand>
@@ -148,7 +151,7 @@ const Chat = () => {
 									</Navbar.Brand>
 								</Navbar>
 							</ChatTitleBox>
-					}
+						}
 						{myRoom.map((v, i) => {
 							return (
 								v.sender === name?

@@ -3,11 +3,10 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { Badge, Button } from 'react-bootstrap'
 import { CREATE_CHATROOM_REQUEST } from '../reducers/user'
-import { useRouter } from 'next/router'
+import PropTypes from 'prop-types'
 
-const CreateRoom = () => {
+const CreateRoom = ({ handleClose }) => {
 	const dispatch = useDispatch()
-	const router = useRouter()
 
 	const [invited, setInvited] = useState([])
 	const { Followers, id } =  useSelector(state => state.user.me)
@@ -37,18 +36,18 @@ const CreateRoom = () => {
 	)
 	
 	const onClickConfirm = useCallback(
-		async () => {
+		() => {
 			var invitedId = []
 			invited.map(v => invitedId.push(v.id))
 			console.log(invitedId)
-			await dispatch({
+			dispatch({
 				type: CREATE_CHATROOM_REQUEST,
 				data: {
 					id: id,
 					list: invitedId
 				}
 			})
-			router.push('/chat')
+			handleClose()
 		},
 		[invited],
 	)
@@ -65,6 +64,10 @@ const CreateRoom = () => {
 			<div style={{textAlign: "center"}}><Button variant="outline-success" onClick={onClickConfirm}>Confirm</Button></div>
 		</div>
 	)
+}
+
+CreateRoom.propTypes = {
+	handleClose: PropTypes.func
 }
 
 export default CreateRoom
