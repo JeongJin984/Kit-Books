@@ -33,7 +33,9 @@ app.prepare()
 			server.set('trust proxy', 1)
 			server.use(morgan('combined'))
 			server.use(hpp())
-			server.use(helmet())
+			server.use(helmet({
+				contentSecurityPolicy: false
+			}))
 			server.use(cookieParser(process.env.COOKIE_SECRET))
 			server.use(session({
 				saveUninitialized: false,
